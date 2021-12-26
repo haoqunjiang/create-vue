@@ -1,0 +1,29 @@
+environment:
+  nodejs_version: "14"
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  # Output useful info for debugging
+  - node --version
+  - npm --version
+  - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@6
+  - pnpm install
+  - npx cypress cache path
+
+test_script:
+  - git --version
+  - node --version
+  - pnpm --version
+  - pnpm pretest
+  # Rerun install to ensure the dependencies in the playground apps are resolved correctly
+  - pnpm install
+  - pnpm test
+
+cache:
+  # cache NPM packages and Cypress binary
+  - '%AppData%\npm'
+  - '%AppData%\pnpm'
+  - '%USERPROFILE%\AppData\Local\Cypress\Cache'
+  - node_modules -> appveyor.yml, pnpm-lock.yaml
+
+build: off
