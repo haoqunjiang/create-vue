@@ -3,5 +3,6 @@
   "component": {
     "componentFolder": "src",
     "testFiles": "**/__tests__/*.spec.{js,ts,jsx,tsx}"
-  }
+  },
+  "retries": 3
 }
